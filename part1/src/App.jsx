@@ -12,18 +12,30 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
    
-  // State to track the index of the currently displayed anecdote
   const [selected, setSelected] = useState(0)
+  
+  // Initialize a zero-filled array of the same length as the anecdotes array
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
 
-  // Function to choose a random valid index from the anecdotes array
   const handleNextClick = () => {
     const randomIndex = Math.floor(Math.random() * anecdotes.length)
     setSelected(randomIndex)
   }
 
+  const handleVoteClick = () => {
+    // Make a shallow copy of the votes array
+    const copy = [...votes]
+    // Increment the value for the selected anecdote index by 1
+    copy[selected] += 1
+    // Update the state with the modified copy
+    setVotes(copy)
+  }
+
   return (
     <div>
       <p>{anecdotes[selected]}</p>
+      <p>has {votes[selected]} votes</p>
+      <button onClick={handleVoteClick}>vote</button>
       <button onClick={handleNextClick}>next anecdote</button>
     </div>
   )
