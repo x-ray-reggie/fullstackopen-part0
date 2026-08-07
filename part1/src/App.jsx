@@ -13,8 +13,6 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
-  
-  // Initialize a zero-filled array of the same length as the anecdotes array
   const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
 
   const handleNextClick = () => {
@@ -23,20 +21,32 @@ const App = () => {
   }
 
   const handleVoteClick = () => {
-    // Make a shallow copy of the votes array
     const copy = [...votes]
-    // Increment the value for the selected anecdote index by 1
     copy[selected] += 1
-    // Update the state with the modified copy
     setVotes(copy)
   }
 
+  // Find the index of the anecdote with the maximum number of votes
+  const maxVotes = Math.max(...votes)
+  const mostVotedIndex = votes.indexOf(maxVotes)
+
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       <p>{anecdotes[selected]}</p>
       <p>has {votes[selected]} votes</p>
       <button onClick={handleVoteClick}>vote</button>
       <button onClick={handleNextClick}>next anecdote</button>
+
+      <h2>Anecdote with most votes</h2>
+      {maxVotes === 0 ? (
+        <p>No votes cast yet</p>
+      ) : (
+        <div>
+          <p>{anecdotes[mostVotedIndex]}</p>
+          <p>has {maxVotes} votes</p>
+        </div>
+      )}
     </div>
   )
 }
