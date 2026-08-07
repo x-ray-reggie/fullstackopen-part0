@@ -1,10 +1,20 @@
 import { useState } from 'react'
 
-// New dedicated Statistics component
 const Statistics = (props) => {
   const all = props.good + props.neutral + props.bad
-  const average = all === 0 ? 0 : (props.good * 1 + props.neutral * 0 + props.bad * -1) / all
-  const positive = all === 0 ? 0 : (props.good / all) * 100
+
+  // Conditional Rendering: check if any feedback has been given yet
+  if (all === 0) {
+    return (
+      <div>
+        <h2>statistics</h2>
+        <p>No feedback given</p>
+      </div>
+    )
+  }
+
+  const average = (props.good * 1 + props.neutral * 0 + props.bad * -1) / all
+  const positive = (props.good / all) * 100
 
   return (
     <div>
@@ -20,7 +30,6 @@ const Statistics = (props) => {
 }
 
 const App = () => {
-  // Save clicks of each button to its own state
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
