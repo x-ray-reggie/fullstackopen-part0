@@ -1,13 +1,15 @@
 import { useState } from 'react'
 
-// Reusable component for displaying a single statistic line
+// Updated component to return a table row with cells
 const StatisticLine = (props) => {
   return (
-    <p>{props.text} {props.value}</p>
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
   )
 }
 
-// Reusable component for displaying buttons
 const Button = (props) => {
   return (
     <button onClick={props.handleClick}>
@@ -34,12 +36,16 @@ const Statistics = (props) => {
   return (
     <div>
       <h2>statistics</h2>
-      <StatisticLine text="good" value={props.good} />
-      <StatisticLine text="neutral" value={props.neutral} />
-      <StatisticLine text="bad" value={props.bad} />
-      <StatisticLine text="all" value={all} />
-      <StatisticLine text="average" value={average} />
-      <StatisticLine text="positive" value={positive + " %"} />
+      <table>
+        <tbody>
+          <StatisticLine text="good" value={props.good} />
+          <StatisticLine text="neutral" value={props.neutral} />
+          <StatisticLine text="bad" value={props.bad} />
+          <StatisticLine text="all" value={all} />
+          <StatisticLine text="average" value={average} />
+          <StatisticLine text="positive" value={positive + " %"} />
+        </tbody>
+      </table>
     </div>
   )
 }
